@@ -1,0 +1,6 @@
+{
+  "name": "Indian Things",
+  "description": "Purveyors of rare origin-certified Grade-A Indian spices, Kashmir Mongra saffron, raw forest honey, cold-pressed Kerala coconut oil, and wild coastal harvests.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
