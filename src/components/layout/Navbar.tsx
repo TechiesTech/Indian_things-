@@ -71,7 +71,7 @@ export default function Navbar({
     <nav id="main-navbar" className={`navbar ${lightBackground ? "is-light" : ""}`}>
       <a href="#" className="logo" aria-label="Indian Things Home">
   <img
-    className="logo-mark"
+    className="logo-mark "
     src="/images/IndianThingsLogo.png"
     alt=""
     aria-hidden="true"
