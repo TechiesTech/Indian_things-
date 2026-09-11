@@ -70,14 +70,16 @@ export default function Navbar({
   return (
     <nav id="main-navbar" className={`navbar ${lightBackground ? "is-light" : ""}`}>
       <a href="#" className="logo" aria-label="Indian Things Home">
-        <img
-          className="logo-mark"
-          src="/images/IndianThingsLogo.png"
-          alt=""
-          aria-hidden="true"
-        />
-        <span className="logo-name">INDIAN THINGS</span>
-      </a>
+  <img
+    className="logo-mark"
+    src="/images/IndianThingsLogo.png"
+    alt=""
+    aria-hidden="true"
+  />
+  <span className="logo-name" style={{ color: "#FFE600" }}>
+    INDIAN THINGS
+  </span>
+</a>
 
       <div className="nav-links">
         <a href="#story" onClick={(e) => scrollToSection(e, "story")}>
