@@ -71,36 +71,36 @@ export default function GalleryItem({ product, index, onSelect }: GalleryItemPro
         className="product-image"
         style={{ y }}
       >
-          {images.length > 0 && (
-            <AnimatePresence initial={false} mode="wait">
-              <motion.img
-                key={images[activeImage]}
-                src={images[activeImage]}
-                alt={`${product.name} production detail`}
-                className="product-photo"
-                loading="lazy"
-                decoding="async"
-                initial={{ opacity: 1, scale: 1.04, x: 18 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 1, scale: 0.98, x: -18 }}
-                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              />
-            </AnimatePresence>
-          )}
+        {images.length > 0 && (
+          <AnimatePresence mode="popLayout">
+            <motion.img
+              key={images[activeImage]}
+              src={images[activeImage]}
+              alt={`${product.name} production detail`}
+              className="product-photo"
+              loading="lazy"
+              decoding="async"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
+        )}
 
-          {images.length === 0 && <div className="product-glow" />}
+        {images.length === 0 && <div className="product-glow" />}
 
-          {images.length === 0 && (
-            <div className="product-shape">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-            </div>
-          )}
+        {images.length === 0 && (
+          <div className="product-shape">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+          </div>
+        )}
 
-          {images.length > 0 && (
-            <span className="product-photo-index">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          )}
+        {images.length > 0 && (
+          <span className="product-photo-index">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        )}
       </motion.div>
 
       <div className="product-info">
