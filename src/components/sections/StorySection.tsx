@@ -14,9 +14,11 @@ export default function StorySection({ scrollToSection }: StorySectionProps) {
     <p className="eyebrow dark">THE PROVENANCE OF PURITY</p>
 
     <h2>
-      <FlipText delay={0.05}>ROOTED</FlipText>
+      <FlipText delay={0.05}>
+        <span className="whitespace-nowrap">ROOTED IN</span>
+      </FlipText>
       <br />
-      <FlipText delay={0.2}>IN ORIGIN.</FlipText>
+      <FlipText delay={0.2}>ORIGIN.</FlipText>
     </h2>
 
     <p className="description">
