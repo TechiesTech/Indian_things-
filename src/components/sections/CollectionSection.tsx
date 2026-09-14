@@ -1,5 +1,6 @@
 import type { Product } from "../../types";
 import GalleryItem from "../collection/GalleryItem";
+import IndiaMap from "../map/IndiaMap";
 
 interface CollectionSectionProps {
   products: Product[];
@@ -22,11 +23,10 @@ export default function CollectionSection({
           </h2>
         </div>
 
-        <p className="collection-description">
-          Single-origin spices, raw wild honey, and stone wood-milled oils. Hand-harvested
-          with absolute chemical non-intervention. Click any harvest to inspect lab-certified
-          purity and provenance.
-        </p>
+        {/* Wrapper styled in index.css under .india-map-wrapper */}
+        <div className="india-map-wrapper">
+          <IndiaMap products={products} />
+        </div>
       </div>
 
       <div className="gallery">

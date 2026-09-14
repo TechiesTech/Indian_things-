@@ -614,9 +614,10 @@ a {
 .collection-heading {
   position: relative;
   z-index: 2;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 560px);
   align-items: center;
+  gap: clamp(24px, 4vw, 64px);
   margin-bottom: 10vw;
 }
 
@@ -679,23 +680,6 @@ a {
   animation: collectionBadgeOrbit 18s linear infinite;
 }
 
-@keyframes collectionBadgeOrbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes collectionDescriptionReveal {
-  from {
-    opacity: 0;
-    transform: translateX(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 /* =========================
    GALLERY
 ========================= */
@@ -719,9 +703,9 @@ a {
 
 .product-image {
   position: relative;
-  height: 60vw;
-  min-height: 240px;
-  max-height: 380px;
+  height: 52vw;
+  min-height: 200px;
+  max-height: 340px;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -908,7 +892,7 @@ a {
   font-family: "Cormorant Garamond", serif;
   font-size: 22px;
   font-weight: 500;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
   text-align: right;
   transition: color 0.3s ease;
 }
@@ -930,9 +914,9 @@ a {
   }
 
   .product-image {
-    height: 42vw;
-    max-height: 420px;
-    min-height: 260px;
+    height: 36vw;
+    max-height: 380px;
+    min-height: 220px;
   }
 
   .product-info h3 {
@@ -978,9 +962,9 @@ a {
   }
 
   .product-image {
-    height: 38vw;
-    min-height: 320px;
-    max-height: none;
+    height: 32vw;
+    min-height: 280px;
+    max-height: 500px;
   }
 
   .product-info h3 {
@@ -1098,12 +1082,6 @@ a {
     opacity: .55;
   }
 
-  .collection-heading {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 30px;
-  }
-
   .collection-description {
     width: min(280px, 78vw);
     margin: 0;
@@ -1210,7 +1188,7 @@ a {
   }
 
   .product-image {
-    height: 78vw;
+    height: 68vw;
     min-height: 0;
   }
 
@@ -1241,6 +1219,13 @@ a {
   }
 }
 
+@media (max-width: 900px) {
+  .collection-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 32px;
+  }
+}
 /* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
