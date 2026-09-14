@@ -1,6 +1,6 @@
 // src/components/map/IndiaMap.tsx
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, GeoJSON, Marker, Popup, useMap } from "react-leaflet";import L from "leaflet";
+import { MapContainer, GeoJSON, Marker, Popup, useMap } from "react-leaflet"; import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Product } from "../../types";
 
@@ -60,11 +60,15 @@ function FitIndiaBounds({ geoData }: { geoData: any }) {
     const layer = L.geoJSON(geoData);
     const bounds = layer.getBounds();
     if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [24, 24] });
+      map.fitBounds(bounds, {
+        paddingTopLeft: [24, 80],
+        paddingBottomRight: [24, 24],
+      });
     }
   }, [geoData, map]);
   return null;
 }
+
 
 export default function IndiaMap({ products }: IndiaMapProps) {
   const [activeState, setActiveState] = useState<string | null>(null);
@@ -361,20 +365,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
           No Products
         </span>
 
-        {activeEntry && activeEntry.products.length > 0 && (
-          <div className="ml-auto border-l border-[#e6cb8c]/30 pl-[18px] text-right">
-            <p className="m-0 text-[8px] uppercase tracking-[0.15em] text-[#e6cb8c]">
-              Active Origin
-            </p>
-            <p className="m-0 mt-[3px] font-['Cormorant_Garamond',serif] text-xl tracking-[0.04em] text-[#fffdf9]">
-              {activeEntry.state}
-            </p>
-            <p className="m-0 text-[8px] tracking-[0.08em] text-[#fffdf9]/50">
-              {activeEntry.products.length} product
-              {activeEntry.products.length > 1 ? "s" : ""}
-            </p>
-          </div>
-        )}
+
       </div>
     </div>
   );
