@@ -8,7 +8,7 @@
   --clay: #bd8572;
 
   --ivory: #f4efe9;
-  --white: #fffdf9;
+  --white: #FFE600;
 
   --gold: #c9a45b;
   --gold-light: #e6cb8c;
@@ -72,9 +72,9 @@ a {
 }
 
 .logo-mark {
-  width: 44px;
-  height: 44px;
-  flex: 0 0 44px;
+  width: 75px;
+  height: 75px;
+  flex: 3 0 44px;
   border-radius: 50%;
   object-fit: cover;
   mix-blend-mode: normal;
@@ -566,7 +566,7 @@ a {
 }
 
 .symbol-center {
-  width: 42%;
+  width: 60%;
   aspect-ratio: 1;
   border-radius: 50%;
   display: grid;
@@ -1160,9 +1160,10 @@ a {
     display: none;
   }
 
-  .story-content h2 {
-    font-size: clamp(60px, 19vw, 100px);
-  }
+.story-content h2 {
+  font-size: clamp(60px, 19vw, 100px);
+  transform: translateX(clamp(-100px, -5vw, -30px));
+}
 
   .story-symbol {
     width: min(64vw, 300px);
@@ -1236,5 +1237,185 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+/* ================================
+   INDIAN THINGS — FOOTER
+================================ */
+
+.site-footer {
+  position: relative;
+  width: 100%;
+  background: #34110E;
+  color: #FFE600;
+  padding: 90px 6vw 30px;
+  overflow: hidden;
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Brand */
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 65px;
+}
+
+.footer-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 0 18px rgba(255, 230, 0, 0.2));
+}
+
+.footer-brand h3 {
+  margin: 0;
+  color: #FFE600;
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.footer-brand p {
+  margin: 16px 0 0;
+  color: #FFE600;
+  opacity: 0.75;
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+/* Navigation */
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 80px;
+}
+
+.footer-links a {
+  position: relative;
+  color: #FFE600;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 1px;
+  background: #FFE600;
+  transition: width 0.35s ease;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* Bottom */
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 230, 0, 0.25);
+
+  color: #FFE600;
+  opacity: 0.65;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Subtle decorative glow */
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  bottom: -250px;
+  border-radius: 50%;
+  background: rgba(255, 230, 0, 0.06);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.site-footer::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  right: -150px;
+  top: -150px;
+  border-radius: 50%;
+  background: rgba(255, 230, 0, 0.05);
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 70px 25px 25px;
+  }
+
+  .footer-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .footer-brand h3 {
+    font-size: clamp(28px, 9vw, 46px);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-brand p {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 55px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
   }
 }

@@ -13,7 +13,7 @@ export default function FlipText({ children, delay = 0 }: FlipTextProps) {
       initial={{
         rotateX: 90,
         opacity: 0,
-        y: 35,
+        y: 30,
       }}
       whileInView={{
         rotateX: 0,

@@ -1,6 +1,7 @@
 import { useState, useEffect, type MouseEvent } from "react";
 import SmoothScroll from "./components/SmoothScroll";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import MobileNavOverlay from "./components/layout/MobileNavOverlay";
 import HeroSection from "./components/hero/HeroSection";
 import StorySection from "./components/sections/StorySection";
@@ -76,6 +77,9 @@ export default function App() {
         />
 
         <ClosingSection />
+        
+        <Footer />
+        
 
         <ProductDetailModal
           selectedProduct={selectedProduct}
