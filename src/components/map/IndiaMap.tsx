@@ -1,6 +1,6 @@
 // src/components/map/IndiaMap.tsx
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, GeoJSON, Marker, Popup, useMap } from "react-leaflet";import L from "leaflet";
+import { MapContainer, GeoJSON, Marker, Popup, useMap } from "react-leaflet"; import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Product } from "../../types";
 
@@ -68,6 +68,7 @@ function FitIndiaBounds({ geoData }: { geoData: any }) {
   }, [geoData, map]);
   return null;
 }
+
 
 export default function IndiaMap({ products }: IndiaMapProps) {
   const [activeState, setActiveState] = useState<string | null>(null);
