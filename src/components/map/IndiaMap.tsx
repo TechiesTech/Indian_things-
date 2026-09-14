@@ -268,7 +268,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
         <p className="m-0 mb-2 text-left text-[10px] uppercase tracking-[0.27em] text-[#e6cb8c]">
           Origin Map
         </p>
-        <h3 className="m-0 font-['Cormorant_Garamond',serif] text-[clamp(28px,3.5vw,48px)] font-medium leading-[0.9] tracking-[0.02em] text-[#fffdf9]">
+        <h3 className="m-0 font-['Cormorant_Garamond',serif] text-[clamp(22px,2.5vw,36px)] font-medium leading-[0.9] tracking-[0.02em] text-[#fffdf9]">
           SOURCED FROM <em className="not-italic text-[#FFE600]">INDIA.</em>
         </h3>
       </div>
