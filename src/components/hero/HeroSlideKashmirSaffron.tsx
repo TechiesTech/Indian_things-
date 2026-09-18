@@ -14,7 +14,7 @@ export default function HeroSlideKashmirSaffron({
   return (
     <motion.div
       key="slide-3-saffron"
-      className="w-full flex flex-col items-center justify-center text-center"
+      className="w-full flex flex-col items-center justify-center text-center min-w-0"
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -25 }}
@@ -89,7 +89,7 @@ export default function HeroSlideKashmirSaffron({
       </div>
 
       {/* Interactive 4-Title Indicators */}
-      <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 mt-4">
+      <div className="w-full flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 mt-4">
         {saffronRotatingTitles.map((item, idx) => (
           <button
             key={`saffron-pill-${idx}`}
