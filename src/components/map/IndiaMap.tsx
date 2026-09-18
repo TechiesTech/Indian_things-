@@ -24,8 +24,7 @@ interface StateProductData {
   coordinates: [number, number];
 }
 
-const INDIA_GEOJSON_URL =
-  "https://raw.githubusercontent.com/geohacker/india/master/state/india_state.geojson";
+const INDIA_GEOJSON_URL = "/india.geojson";
 
 // India's geographic bounds: roughly lat 6.5 → 37.5, lng 68 → 97.5
 // Center chosen to visually balance the shape inside a 460px tall container
@@ -61,8 +60,8 @@ function FitIndiaBounds({ geoData }: { geoData: any }) {
     const bounds = layer.getBounds();
     if (bounds.isValid()) {
       map.fitBounds(bounds, {
-        paddingTopLeft: [24, 80],
-        paddingBottomRight: [24, 24],
+        paddingTopLeft: [0, 0],
+        paddingBottomRight: [0, 0],
       });
     }
   }, [geoData, map]);
@@ -114,6 +113,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
     const name = (
       feature.properties.NAME_1 ||
       feature.properties.name ||
+      feature.properties.st_nm ||
       ""
     ).toLowerCase();
     const hasProducts = mapData.some(
@@ -135,7 +135,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
   };
 
   const onEachState = (feature: any, layer: any) => {
-    const stateName = feature.properties.NAME_1 || feature.properties.name;
+    const stateName = feature.properties.NAME_1 || feature.properties.name || feature.properties.st_nm;
     const stateEntry = mapData.find(
       (s) =>
         normalizeStateName(s.state) === normalizeStateName(stateName || "")
@@ -171,6 +171,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
           background: #f4efe9 !important;
           font-family: inherit;
           z-index: 1;
+          overflow: visible !important;
         }
         .india-map-surface .leaflet-control-attribution {
           padding: 3px 7px;
@@ -253,7 +254,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
           color: #833220;
           opacity: 1;
         }
-        .origin-marker.is-active::before {
+        .origin-marker::before {
           content: "";
           position: absolute;
           inset: 1px;
@@ -279,7 +280,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
 
       {/* Map surface */}
       <div
-        className="india-map-surface relative w-full overflow-hidden rounded-2xl border border-[#c9a45b]/40 shadow-[0_24px_70px_rgba(18,5,3,0.32)]"
+        className="india-map-surface relative z-20 w-full rounded-2xl border border-[#c9a45b]/40 shadow-[0_24px_70px_rgba(18,5,3,0.32)]"
         style={{
           height: "460px",
           minHeight: "460px",
@@ -297,11 +298,16 @@ export default function IndiaMap({ products }: IndiaMapProps) {
           zoom={INDIA_ZOOM}
           minZoom={3}
           maxZoom={7}
-          zoomSnap={0.25}
+          zoomSnap={0.01}
           zoomDelta={0.25}
           zoomControl={false}
           attributionControl
           scrollWheelZoom={false}
+          dragging={false}
+          doubleClickZoom={false}
+          touchZoom={false}
+          keyboard={false}
+          boxZoom={false}
           style={{ height: "460px", width: "100%", background: "transparent" }}
         >
           {geoData && <FitIndiaBounds geoData={geoData} />}
@@ -326,7 +332,7 @@ export default function IndiaMap({ products }: IndiaMapProps) {
                   click: () => setActiveState(stateData.state),
                 }}
               >
-                <Popup className="custom-popup">
+                <Popup className="custom-popup" autoPan={false}>
                   <div className="text-[#fffdf9]">
                     <h4 className="mb-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#FFE600]">
                       {stateData.state}
@@ -354,19 +360,6 @@ export default function IndiaMap({ products }: IndiaMapProps) {
         </MapContainer>
       </div>
 
-      {/* Legend */}
-      <div className="flex flex-wrap items-center gap-x-[22px] gap-y-2.5 text-[9px] uppercase tracking-[0.12em] text-[#fffdf9]/70">
-        <span className="inline-flex items-center gap-2">
-          <span className="inline-block h-[9px] w-[9px] rounded-full border border-[#e6cb8c] bg-[#e6cb8c] shadow-[0_0_10px_rgba(230,203,140,0.6)]" />
-          Products Available
-        </span>
-        <span className="inline-flex items-center gap-2">
-          <span className="inline-block h-[9px] w-[9px] rounded-full border border-[#fffdf9]/40 bg-[#fffdf9]/10" />
-          No Products
-        </span>
-
-
-      </div>
     </div>
   );
 }
