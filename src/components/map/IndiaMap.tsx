@@ -74,15 +74,80 @@ export default function IndiaMap({ products, activeState = "Jammu & Kashmir", on
   useEffect(() => { placePopupForState(activeState); }, [activeState, calculatedLabels]);
 
   return (
-    <div className="relative z-10 h-full w-full min-h-[360px] overflow-visible bg-transparent">
-      <svg viewBox="0 0 700 730" className="h-full w-full transition-transform duration-300" style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }} aria-label="Interactive map of India">
-        <defs><radialGradient id="map-glow"><stop stopColor="#d99f30" stopOpacity=".5" /><stop offset="1" stopColor="#d99f30" stopOpacity="0" /></radialGradient><linearGradient id="map-gold" x1="0" x2="1"><stop stopColor="#efc268" /><stop offset="1" stopColor="#b87a21" /></linearGradient></defs>
+    <div className="relative z-10 flex h-full w-full items-center justify-center overflow-visible bg-transparent py-4">
+      <svg
+        viewBox="20 20 660 700"
+        className="h-full w-full max-h-[820px] transition-transform duration-300"
+        style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }}
+        aria-label="Interactive map of India"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <radialGradient id="map-glow">
+            <stop stopColor="#d99f30" stopOpacity=".5" />
+            <stop offset="1" stopColor="#d99f30" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="map-gold" x1="0" x2="1">
+            <stop stopColor="#efc268" />
+            <stop offset="1" stopColor="#b87a21" />
+          </linearGradient>
+        </defs>
+
         <circle cx={focusLabel[0]} cy={focusLabel[1]} r="100" fill="url(#map-glow)" opacity=".35" />
-        <g>{states.map(({ state, d }, index) => { const selected = normalize(state) === normalize(activeState); const isHover = normalize(state) === normalize(hovered ?? ""); return <path key={`${state}-${index}`} d={d} fill={selected ? "url(#map-gold)" : isHover ? "#d69c35" : "#202631"} stroke={selected ? "#f6dc9e" : "#3b4554"} strokeWidth={selected ? 1.2 : .45} className="cursor-pointer transition-[fill] duration-200" onMouseEnter={() => setHovered(state)} onMouseLeave={() => setHovered(null)} onClick={() => { placePopupForState(state); onStateSelect?.(state); }} />; })}</g>
-        <g pointerEvents="none">{Object.entries(labelPositions).map(([state, [labelX, labelY]]) => <text key={state} x={labelX} y={labelY} textAnchor="middle" fill={normalize(state) === normalize(activeState) ? "#1c1710" : "#aeb5bf"} fontSize={normalize(state) === normalize(activeState) ? "10" : "7.5"} fontWeight={normalize(state) === normalize(activeState) ? "700" : "500"}>{state}</text>)}</g>
+
+        <g>
+          {states.map(({ state, d }, index) => {
+            const selected = normalize(state) === normalize(activeState);
+            const isHover = normalize(state) === normalize(hovered ?? "");
+            return (
+              <path
+                key={`${state}-${index}`}
+                d={d}
+                fill={selected ? "url(#map-gold)" : isHover ? "#d69c35" : "#202631"}
+                stroke={selected ? "#f6dc9e" : "#3b4554"}
+                strokeWidth={selected ? 1.4 : 0.55}
+                className="cursor-pointer transition-[fill] duration-200"
+                onMouseEnter={() => setHovered(state)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => { placePopupForState(state); onStateSelect?.(state); }}
+              />
+            );
+          })}
+        </g>
+
+        <g pointerEvents="none">
+          {Object.entries(labelPositions).map(([state, [labelX, labelY]]) => (
+            <text
+              key={state}
+              x={labelX}
+              y={labelY}
+              textAnchor="middle"
+              fill={normalize(state) === normalize(activeState) ? "#1c1710" : "#aeb5bf"}
+              fontSize={normalize(state) === normalize(activeState) ? "11" : "8.5"}
+              fontWeight={normalize(state) === normalize(activeState) ? "700" : "500"}
+            >
+              {state}
+            </text>
+          ))}
+        </g>
       </svg>
-      <div className="pointer-events-none absolute z-10 w-[min(280px,58%)] border border-[#6a5b43] bg-[#151a21]/95 p-4 shadow-2xl transition-[left,top] duration-150" style={{ left: `${popupPosition.x}%`, top: `${popupPosition.y}%`, transform: "translate(-50%, -50%)" }}><div className="flex items-center justify-between"><strong className="font-['Cormorant_Garamond',serif] text-xl text-[#fff7e9]">{focusState}</strong><span className="grid h-8 w-8 place-items-center rounded-full bg-[#d69c35] text-[#21170b]">→</span></div><p className="mt-2 text-xs leading-relaxed text-[#aeb6c3]">Heritage crafts · regional treasures · artisan stories</p><div className="mt-3 flex justify-between border-t border-white/10 pt-3 text-[10px] uppercase tracking-[.1em] text-[#d9a642]"><span>Click to explore</span><span>Products</span></div></div>
-      <div className="absolute bottom-6 right-5 z-10 flex flex-col overflow-hidden rounded border border-white/20"><button onClick={() => setZoom((value) => Math.min(1.28, value + .1))} className="grid h-9 w-9 place-items-center border-b border-white/15 text-white"><Plus size={15} /></button><button onClick={() => setZoom((value) => Math.max(1, value - .1))} className="grid h-9 w-9 place-items-center text-white"><Minus size={15} /></button></div>
+
+      <div className="pointer-events-none absolute z-10 w-[min(280px,58%)] border border-[#6a5b43] bg-[#151a21]/95 p-4 shadow-2xl transition-[left,top] duration-150" style={{ left: `${popupPosition.x}%`, top: `${popupPosition.y}%`, transform: "translate(-50%, -50%)" }}>
+        <div className="flex items-center justify-between">
+          <strong className="font-['Cormorant_Garamond',serif] text-xl text-[#fff7e9]">{focusState}</strong>
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-[#d69c35] text-[#21170b]">→</span>
+        </div>
+        <p className="mt-2 text-xs leading-relaxed text-[#aeb6c3]">Heritage crafts · regional treasures · artisan stories</p>
+        <div className="mt-3 flex justify-between border-t border-white/10 pt-3 text-[10px] uppercase tracking-[.1em] text-[#d9a642]">
+          <span>Click to explore</span>
+          <span>Products</span>
+        </div>
+      </div>
+
+      <div className="absolute bottom-6 right-5 z-10 flex flex-col overflow-hidden rounded border border-white/20">
+        <button onClick={() => setZoom((value) => Math.min(1.28, value + .1))} className="grid h-9 w-9 place-items-center border-b border-white/15 text-white"><Plus size={15} /></button>
+        <button onClick={() => setZoom((value) => Math.max(1, value - .1))} className="grid h-9 w-9 place-items-center text-white"><Minus size={15} /></button>
+      </div>
     </div>
   );
 }
