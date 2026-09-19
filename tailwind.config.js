@@ -29,6 +29,13 @@ export default {
         'ultra-wide': '.28em',
         'wide-plus': '.18em',
       },
+      keyframes: {
+        rotateOrbit: {
+          'to': {
+            transform: 'rotate(360deg)',
+          },
+        },
+      },
     },
   },
   plugins: [],
