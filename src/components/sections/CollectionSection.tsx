@@ -52,7 +52,7 @@ export default function CollectionSection({ products, onSelectProduct }: Collect
         .bharat-explorer .explorer-hero { display:grid; grid-template-columns:1fr 1fr; align-items:stretch; background:radial-gradient(circle at 4% 78%,rgba(168,111,35,.17),transparent 40%),linear-gradient(115deg,#0b0e12,#18150e); }
         .bharat-explorer .explorer-copy { padding:20px 7vw 20px; display:flex; flex-direction:column; justify-content:center; }
         .bharat-explorer .explorer-map { min-height:0; padding:20px 5vw 20px 3vw; border-left:1px solid rgba(255,255,255,.1); position:relative; }
-        .bharat-explorer .state-paper { background-color:#f7f4ed; background-image:linear-gradient(rgba(247,244,237,.88),rgba(247,244,237,.94)),url('/images/indian-pattern.png'); background-size:auto,430px; color:#211c17; padding:42px 7vw 60px; }
+        .bharat-explorer .state-paper { background-color:#35120e; background-image:linear-gradient(rgba(53,18,14,.88),rgba(53,18,14,.94)),url('/images/indian-pattern.png'); background-size:auto,430px; color:#FFE600; padding:42px 7vw 60px; }
         .bharat-explorer .product-card { position:relative; min-height:260px; overflow:hidden; border-radius:5px; background:#151515; cursor:pointer; border:1px solid rgba(72,57,33,.45); text-align:left; padding:0; }
         .bharat-explorer .product-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
         .bharat-explorer .product-card:hover img { transform:scale(1.06); }
@@ -88,14 +88,14 @@ export default function CollectionSection({ products, onSelectProduct }: Collect
 
       <section ref={detailsRef} id="state-details" className="state-paper scroll-mt-16">
         <div className="mx-auto max-w-[1500px]">
-          <div className="mb-10 flex flex-wrap items-center justify-between gap-5 border-b border-[#d7ccba] pb-4">
-            <span className="text-xs font-semibold uppercase tracking-[.28em] text-[#a77a31]">Explore</span>
-            <div className="flex gap-5 text-xs uppercase tracking-[.12em] text-[#6b6258]">
+          <div className="mb-10 flex flex-wrap items-center justify-between gap-5 border-b border-[#d69c35]/30 pb-4">
+            <span className="text-xs font-semibold uppercase tracking-[.28em] text-[#d69c35]">Explore</span>
+            <div className="flex gap-5 text-xs uppercase tracking-[.12em] text-[#f4efe9]">
               {['Overview', 'Products', 'Culture', 'Places'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={activeTab === tab ? 'border-b-2 border-[#a77a31] pb-2 text-[#1c1712]' : 'pb-2'}
+                  className={activeTab === tab ? 'border-b-2 border-[#d69c35] pb-2 text-[#FFE600]' : 'pb-2'}
                 >
                   {tab}
                 </button>
@@ -103,14 +103,14 @@ export default function CollectionSection({ products, onSelectProduct }: Collect
             </div>
           </div>
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr]">
-            <div><div className="flex items-center gap-5"><h2 className="font-['Cormorant_Garamond',serif] text-[clamp(50px,6vw,82px)] font-semibold leading-none">{activeState}</h2><span className="h-px w-16 bg-[#b18842]" /></div><p className="mt-3 font-['Cormorant_Garamond',serif] text-xl sm:text-2xl">{detail.tagline}</p><p className="mt-5 max-w-xl text-sm leading-relaxed text-[#6c6258]">{detail.description}</p><button onClick={() => document.getElementById('explore-section')?.scrollIntoView({ behavior: "smooth" })} className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#74695b] px-4 py-2 text-xs"><ArrowLeft size={14} /> Back to Map</button></div>
+            <div><div className="flex items-center gap-5"><h2 className="font-['Cormorant_Garamond',serif] text-[clamp(50px,6vw,82px)] font-semibold leading-none text-[#FFE600]">{activeState}</h2><span className="h-px w-16 bg-[#d69c35]" /></div><p className="mt-3 font-['Cormorant_Garamond',serif] text-xl sm:text-2xl text-[#f4efe9]">{detail.tagline}</p><p className="mt-5 max-w-xl text-sm leading-relaxed text-[#f4efe9]/80">{detail.description}</p><button onClick={() => document.getElementById('explore-section')?.scrollIntoView({ behavior: "smooth" })} className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#d69c35]/50 px-4 py-2 text-xs text-[#FFE600] hover:bg-[#d69c35]/20"><ArrowLeft size={14} /> Back to Map</button></div>
             <div className="monument-frame">
               <img src={detail.monumentImage} alt={`${activeState} landmark`} />
               <div className="tint" />
               <div className="quote">{detail.bannerQuote}</div>
             </div>
           </div>
-          {activeTab === 'Products' ? <><div className="mt-14 flex flex-wrap items-end justify-between gap-4"><div><p className="text-[10px] uppercase tracking-[.22em] text-[#a77a31]">Curated collection</p><h3 className="mt-1 flex items-center gap-3 font-['Cormorant_Garamond',serif] text-3xl font-semibold"><span className="h-5 w-1 bg-[#a77a31]" /> Products from {activeState}</h3><p className="mt-1 text-xs text-[#776d62]">A glimpse of {activeState}'s finest creations</p></div><button className="inline-flex items-center gap-2 text-xs">View All <ArrowRight size={14} /></button></div>{stateProducts.length > 0 ? <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">{stateProducts.map((product) => <StateProductCard key={product.name} product={product} onSelect={onSelectProduct} />)}</div> : <div className="mt-5 border border-dashed border-[#cdbfa9] bg-white/45 px-6 py-10 text-center text-sm text-[#776d62]">No products available for {activeState} yet.</div>}</> : <div className="mt-12 max-w-3xl border border-[#ddd2c0] bg-white/60 p-7 text-sm leading-relaxed text-[#6c6258]">{detail.description} The living traditions, landscapes and skilled makers of {activeState} shape every object in this regional collection.</div>}
+          {activeTab === 'Products' ? <><div className="mt-14 flex flex-wrap items-end justify-between gap-4"><div><p className="text-[10px] uppercase tracking-[.22em] text-[#d69c35]">Curated collection</p><h3 className="mt-1 flex items-center gap-3 font-['Cormorant_Garamond',serif] text-3xl font-semibold text-[#FFE600]"><span className="h-5 w-1 bg-[#d69c35]" /> Products from {activeState}</h3><p className="mt-1 text-xs text-[#f4efe9]/70">A glimpse of {activeState}'s finest creations</p></div><button className="inline-flex items-center gap-2 text-xs text-[#FFE600]">View All <ArrowRight size={14} /></button></div>{stateProducts.length > 0 ? <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">{stateProducts.map((product) => <StateProductCard key={product.name} product={product} onSelect={onSelectProduct} />)}</div> : <div className="mt-5 border border-dashed border-[#d69c35]/30 bg-white/10 px-6 py-10 text-center text-sm text-[#f4efe9]/70">No products available for {activeState} yet.</div>}</> : <div className="mt-12 max-w-3xl border border-[#d69c35]/30 bg-white/10 p-7 text-sm leading-relaxed text-[#f4efe9]/80">{detail.description} The living traditions, landscapes and skilled makers of {activeState} shape every object in this regional collection.</div>}
         </div>
       </section>
     </section>
