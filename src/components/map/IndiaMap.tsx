@@ -135,18 +135,18 @@ export default function IndiaMap({ products, activeState = "Jammu & Kashmir", on
       <div className="pointer-events-none absolute z-10 w-[min(280px,58%)] border border-[#6a5b43] bg-[#151a21]/95 p-4 shadow-2xl transition-[left,top] duration-150" style={{ left: `${popupPosition.x}%`, top: `${popupPosition.y}%`, transform: "translate(-50%, -50%)" }}>
         <div className="flex items-center justify-between">
           <strong className="font-['Cormorant_Garamond',serif] text-xl text-[#fff7e9]">{focusState}</strong>
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-[#d69c35] text-[#21170b]">→</span>
+          <button onClick={() => onStateSelect?.(focusState)} className="pointer-events-auto grid h-8 w-8 place-items-center rounded-full bg-[#d69c35] text-[#21170b] hover:bg-[#e6b84a] transition-colors cursor-pointer" aria-label={`Explore ${focusState}`}>→</button>
         </div>
         <p className="mt-2 text-xs leading-relaxed text-[#aeb6c3]">Heritage crafts · regional treasures · artisan stories</p>
         <div className="mt-3 flex justify-between border-t border-white/10 pt-3 text-[10px] uppercase tracking-[.1em] text-[#d9a642]">
-          <span>Click to explore</span>
-          <span>Products</span>
+          <button onClick={() => onStateSelect?.(focusState)} className="pointer-events-auto hover:text-[#e6b84a] transition-colors cursor-pointer">Click to explore</button>
+          <button onClick={() => onStateSelect?.(focusState)} className="pointer-events-auto hover:text-[#e6b84a] transition-colors cursor-pointer">Products</button>
         </div>
       </div>
 
-      <div className="absolute bottom-6 right-5 z-10 flex flex-col overflow-hidden rounded border border-white/20">
-        <button onClick={() => setZoom((value) => Math.min(1.28, value + .1))} className="grid h-9 w-9 place-items-center border-b border-white/15 text-white"><Plus size={15} /></button>
-        <button onClick={() => setZoom((value) => Math.max(1, value - .1))} className="grid h-9 w-9 place-items-center text-white"><Minus size={15} /></button>
+      <div className="absolute bottom-6 right-5 z-20 flex flex-col overflow-hidden rounded border border-white/20">
+        <button onClick={() => setZoom((value) => Math.min(1.28, value + .1))} className="pointer-events-auto grid h-9 w-9 place-items-center border-b border-white/15 text-white bg-[#151a21]/80 hover:bg-[#1e2630]/80 transition-colors cursor-pointer"><Plus size={15} /></button>
+        <button onClick={() => setZoom((value) => Math.max(1, value - .1))} className="pointer-events-auto grid h-9 w-9 place-items-center text-white bg-[#151a21]/80 hover:bg-[#1e2630]/80 transition-colors cursor-pointer"><Minus size={15} /></button>
       </div>
     </div>
   );
