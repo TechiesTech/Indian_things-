@@ -1033,6 +1033,7 @@ a {
   color: #8d7770;
   font-size: 9px;
   letter-spacing: .15em;
+  font-family: "Cormorant Garamond", serif;
 }
 
 /* DETAIL MODAL / DRAWER */
@@ -1253,6 +1254,8 @@ a {
   color: #FFE600;
   padding: 90px 6vw 30px;
   overflow: hidden;
+
+  font-family: "Cormorant Garamond", serif;
 }
 
 .footer-inner {
@@ -1276,6 +1279,7 @@ a {
   height: 90px;
   object-fit: contain;
   margin-bottom: 24px;
+  border-radius: 50%;
   filter: drop-shadow(0 0 18px rgba(255, 230, 0, 0.2));
 }
 
