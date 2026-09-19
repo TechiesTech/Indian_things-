@@ -53,6 +53,15 @@ export default function StorySection({ scrollToSection }: StorySectionProps) {
         src="/images/IndianThingsLogo.png"
         alt="Indian Things"
       />
+    <div className="symbol-center">
+<video
+  className="story-logo"
+  src="/images/IndianThingsLogo.mp4"
+  autoPlay
+  loop
+  muted
+  playsInline
+/>
     </div>
   </div>
 </section>

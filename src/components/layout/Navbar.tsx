@@ -78,6 +78,18 @@ export default function Navbar({
     style={{ filter: lightBackground ? "brightness(0.5)" : "brightness(1)" }}
   />
   <span className="inline-flex items-center leading-none font-serif text-[20px] font-semibold tracking-[.14em]" style={{ color: lightBackground ? "#2b2421" : "#FFE600" }}>
+    <nav id="main-navbar" className={`navbar ${lightBackground ? "is-light" : ""}`}>
+      <a href="#" className="logo" aria-label="Indian Things Home">
+<video
+  className="logo-mark"
+  src="/images/IndianThingsLogo.mp4"
+  autoPlay
+  loop
+  muted
+  playsInline
+  aria-hidden="true"
+/>
+  <span className="logo-name" style={{ color: "#FFE600" }}>
     INDIAN THINGS
   </span>
 </a>
