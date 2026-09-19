@@ -44,13 +44,13 @@ export default function HeroSection({
   );
 
   return (
-    <section ref={heroRef} id="hero" className="relative h-[90svh] min-h-[580px] grid place-items-center overflow-hidden bg-[#35120e]">
+    <section ref={heroRef} id="hero" className="hero">
       {/* Backgrounds with Crossfade */}
       <AnimatePresence mode="wait">
         {currentSlide === 0 ? (
           <motion.div
             key="hero-slide-1-bg"
-            className="absolute -inset-[10%] bg-[linear-gradient(rgba(53,18,14,.3),rgba(53,18,14,.3)),url('/images/indian-pattern.png')] bg-[length:620px_auto] bg-center"
+            className="hero-pattern"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.35 }}
             exit={{ opacity: 0 }}
@@ -63,7 +63,7 @@ export default function HeroSection({
         ) : currentSlide === 1 ? (
           <motion.div
             key="hero-slide-2-bg"
-            className="absolute -inset-[5%] bg-[linear-gradient(rgba(40,12,8,0.45),rgba(25,6,4,0.65)),url('/images/spices-hero-slide-2.jpg')] bg-cover bg-center"
+            className="hero-image-bg"
             initial={{ opacity: 0, scale: 1.06 }}
             animate={{ opacity: 0.95, scale: 1 }}
             exit={{ opacity: 0, scale: 1.04 }}
@@ -75,7 +75,7 @@ export default function HeroSection({
         ) : (
           <motion.div
             key="hero-slide-3-bg"
-            className="absolute -inset-[5%] bg-[linear-gradient(rgba(32,8,5,0.50),rgba(18,4,3,0.72)),url('https://i.pinimg.com/1200x/3c/70/b9/3c70b9b77c6d379f197b9504fb0148f1.jpg')] bg-cover bg-center"
+            className="hero-saffron-bg"
             initial={{ opacity: 0, scale: 1.08 }}
             animate={{ opacity: 0.96, scale: 1 }}
             exit={{ opacity: 0, scale: 1.04 }}
@@ -88,10 +88,10 @@ export default function HeroSection({
         )}
       </AnimatePresence>
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,rgba(30,8,4,.35)_55%,rgba(20,5,3,.88)_100%)] pointer-events-none" />
+      <div className="hero-overlay" />
 
       <motion.div
-        className="relative mx-auto flex max-w-[min(1100px,calc(100%-32px))] min-w-0 flex-col items-center justify-center text-center"
+        className="hero-content mx-auto flex flex-col items-center justify-center text-center"
         style={{
           opacity: heroOpacity,
         }}
@@ -111,7 +111,7 @@ export default function HeroSection({
         </AnimatePresence>
 
         {/* CLEAN LUXURY HERO SCROLL INDICATOR (CENTERED WITH 3-SLIDE NAVIGATION) */}
-        <div className="mx-auto mt-[65px] grid max-w-[440px] grid-cols-[1fr_90px_1fr] items-center gap-5 text-[9px] tracking-[.17em] text-white/70">
+        <div className="hero-scroll mx-auto">
           <button
             onClick={() => setCurrentSlide((curr) => (curr + 1) % 3)}
             className="text-left hover:text-[#e6cb8c] transition-colors cursor-pointer"
@@ -129,7 +129,7 @@ export default function HeroSection({
             )}
           </button>
 
-          <div className="h-px bg-white/25 overflow-hidden">
+          <div className="scroll-track">
             <div />
           </div>
 
