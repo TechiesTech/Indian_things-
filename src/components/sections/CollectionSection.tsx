@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Product } from "../../types";
 import { STATE_PROFILES } from "../../data/stateProfiles";
 import IndiaMap from "../map/IndiaMap";
+import StateProductCard from "../collection/StateProductCard";
 
 interface CollectionSectionProps {
   products: Product[];
@@ -108,7 +110,7 @@ export default function CollectionSection({ products, onSelectProduct }: Collect
               <div className="quote">{detail.bannerQuote}</div>
             </div>
           </div>
-          {activeTab === 'Products' ? <><div className="mt-14 flex flex-wrap items-end justify-between gap-4"><div><p className="text-[10px] uppercase tracking-[.22em] text-[#a77a31]">Curated collection</p><h3 className="mt-1 flex items-center gap-3 font-['Cormorant_Garamond',serif] text-3xl font-semibold"><span className="h-5 w-1 bg-[#a77a31]" /> Products from {activeState}</h3><p className="mt-1 text-xs text-[#776d62]">A glimpse of {activeState}'s finest creations</p></div><button className="inline-flex items-center gap-2 text-xs">View All <ArrowRight size={14} /></button></div>{stateProducts.length > 0 ? <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">{stateProducts.map((product) => <button key={product.name} className="product-card" onClick={() => onSelectProduct(product)}><img src={product.images?.[0]} alt={product.name} /><span className="product-card__info"><span className="product-card__category">{product.category}</span><span className="product-card__name">{product.name}</span></span></button>)}</div> : <div className="mt-5 border border-dashed border-[#cdbfa9] bg-white/45 px-6 py-10 text-center text-sm text-[#776d62]">No products available for {activeState} yet.</div>}</> : <div className="mt-12 max-w-3xl border border-[#ddd2c0] bg-white/60 p-7 text-sm leading-relaxed text-[#6c6258]">{detail.description} The living traditions, landscapes and skilled makers of {activeState} shape every object in this regional collection.</div>}
+          {activeTab === 'Products' ? <><div className="mt-14 flex flex-wrap items-end justify-between gap-4"><div><p className="text-[10px] uppercase tracking-[.22em] text-[#a77a31]">Curated collection</p><h3 className="mt-1 flex items-center gap-3 font-['Cormorant_Garamond',serif] text-3xl font-semibold"><span className="h-5 w-1 bg-[#a77a31]" /> Products from {activeState}</h3><p className="mt-1 text-xs text-[#776d62]">A glimpse of {activeState}'s finest creations</p></div><button className="inline-flex items-center gap-2 text-xs">View All <ArrowRight size={14} /></button></div>{stateProducts.length > 0 ? <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">{stateProducts.map((product) => <StateProductCard key={product.name} product={product} onSelect={onSelectProduct} />)}</div> : <div className="mt-5 border border-dashed border-[#cdbfa9] bg-white/45 px-6 py-10 text-center text-sm text-[#776d62]">No products available for {activeState} yet.</div>}</> : <div className="mt-12 max-w-3xl border border-[#ddd2c0] bg-white/60 p-7 text-sm leading-relaxed text-[#6c6258]">{detail.description} The living traditions, landscapes and skilled makers of {activeState} shape every object in this regional collection.</div>}
         </div>
       </section>
     </section>
