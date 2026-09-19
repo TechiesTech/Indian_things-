@@ -3,11 +3,14 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <img
-            src="/images/IndianThingsLogo.png"
-            alt="Indian Things"
-            className="footer-logo"
-          />
+<video
+  src="/images/IndianThingsLogo.mp4"
+  className="footer-logo"
+  autoPlay
+  loop
+  muted
+  playsInline
+/>
 
           <h3>INDIAN THINGS</h3>
           <p>ROOTED IN ORIGIN.</p>

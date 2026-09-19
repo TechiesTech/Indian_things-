@@ -46,11 +46,14 @@ export default function StorySection({ scrollToSection }: StorySectionProps) {
     <div className="orbit orbit-two" />
 
     <div className="symbol-center">
-      <img
-        className="story-logo"
-        src="/images/IndianThingsLogo.png"
-        alt="Indian Things"
-      />
+<video
+  className="story-logo"
+  src="/images/IndianThingsLogo.mp4"
+  autoPlay
+  loop
+  muted
+  playsInline
+/>
     </div>
   </div>
 </section>
