@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import type { Product } from "../../types";
 
 export interface GalleryItemProps {
@@ -105,7 +106,19 @@ export default function GalleryItem({ product, index, onSelect }: GalleryItemPro
 
       <div className="product-info">
         <span>{product.category}</span>
-        <h3>{product.name}</h3>
+        <div className="flex items-center justify-between">
+          <h3>{product.name}</h3>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(product);
+            }}
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#d69c35]/50 bg-[#d69c35]/20 text-[#d69c35] transition-all hover:bg-[#d69c35] hover:text-[#21170b]"
+            aria-label="View product details"
+          >
+            <ArrowRight size={18} />
+          </button>
+        </div>
       </div>
     </motion.article>
   );
