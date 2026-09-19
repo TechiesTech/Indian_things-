@@ -48,20 +48,18 @@ export default function StorySection({ scrollToSection }: StorySectionProps) {
     <div className="absolute inset-[20%] rounded-full border border-[rgba(201,164,91,.7)] animate-[rotateOrbit_12s_reverse_linear_infinite]" />
 
     <div className="relative w-[60%] aspect-square rounded-full grid place-items-center shadow-[0_30px_80px_rgba(53,18,14,.25)] select-none">
-      <img
-        className="block w-full h-full object-cover rounded-full"
-        src="/images/IndianThingsLogo.png"
-        alt="Indian Things"
-      />
-    <div className="symbol-center">
-<video
-  className="story-logo"
-  src="/images/IndianThingsLogo.mp4"
-  autoPlay
-  loop
-  muted
-  playsInline
-/>
+        
+
+      <div className="symbol-center">
+        <video
+          className="story-logo"
+          src="/images/IndianThingsLogo.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+      </div>
     </div>
   </div>
 </section>

@@ -868,13 +868,6 @@ a {
     grid-template-columns: 30px 1fr;
   }
 
-  .story-symbol {
-    position: absolute;
-    right: -10vw;
-    bottom: 8vh;
-    width: 48vw;
-    opacity: .55;
-  }
 
   .collection-description {
     width: min(280px, 78vw);
@@ -959,11 +952,23 @@ a {
   transform: translateX(clamp(-100px, -5vw, -30px));
 }
 
-  .story-symbol {
-    width: min(64vw, 300px);
-    right: -18vw;
-    bottom: 4vh;
-  }
+
+.symbol-center {
+  width: 60%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.story-logo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
 
   .collection {
     padding: 25vw 6vw;

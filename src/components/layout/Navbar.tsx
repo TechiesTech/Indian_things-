@@ -68,31 +68,22 @@ export default function Navbar({
   }, []);
 
   return (
-    <nav id="main-navbar" className={`fixed top-0 left-0 w-full h-[76px] z-100 px-[clamp(12px,3vw,48px)] py-0 flex items-center justify-between transition-colors duration-300 ease-in-out`} style={{ color: lightBackground ? "#2b2421" : "#FFE600" }}>
+    <nav id="main-navbar" className="fixed top-0 left-0 w-full h-[76px] z-100 px-[clamp(12px,3vw,48px)] py-0 flex items-center justify-between transition-colors duration-300 ease-in-out" style={{ color: lightBackground ? "#2b2421" : "#FFE600" }}>
       <a href="#" className="h-[46px] inline-flex items-center gap-2.5 leading-none whitespace-nowrap" aria-label="Indian Things Home">
-  <img
-    className="w-[75px] h-[75px] flex-[3_0_44px] rounded-full object-cover transition-all duration-300"
-    src="/images/IndianThingsLogo.png"
-    alt=""
-    aria-hidden="true"
-    style={{ filter: lightBackground ? "brightness(0.5)" : "brightness(1)" }}
-  />
-  <span className="inline-flex items-center leading-none font-serif text-[20px] font-semibold tracking-[.14em]" style={{ color: lightBackground ? "#2b2421" : "#FFE600" }}>
-    <nav id="main-navbar" className={`navbar ${lightBackground ? "is-light" : ""}`}>
-      <a href="#" className="logo" aria-label="Indian Things Home">
-<video
-  className="logo-mark"
-  src="/images/IndianThingsLogo.mp4"
-  autoPlay
-  loop
-  muted
-  playsInline
-  aria-hidden="true"
-/>
-  <span className="logo-name" style={{ color: "#FFE600" }}>
-    INDIAN THINGS
-  </span>
-</a>
+        <video
+          className="w-[75px] h-[75px] rounded-full object-cover"
+          src="/images/IndianThingsLogo.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+          style={{ filter: lightBackground ? "brightness(0.5)" : "brightness(1)" }}
+        />
+        <span className="inline-flex items-center leading-none font-serif text-[20px] font-semibold tracking-[.14em]" style={{ color: lightBackground ? "#2b2421" : "#FFE600" }}>
+          INDIAN THINGS
+        </span>
+      </a>
 
       <div className="hidden sm:flex gap-[35px] text-[10px] uppercase tracking-[.18em]">
         <a href="#story" onClick={(e) => scrollToSection(e, "story")} className="relative transition-colors duration-400 ease-in-out hover:text-gold-light after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-gold-light after:transition-all after:duration-300 after:ease-in-out hover:after:w-full">
