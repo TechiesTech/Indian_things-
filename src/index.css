@@ -74,10 +74,12 @@ a {
 .logo-mark {
   width: 65px;
   height: 65px;
-  flex: 3 0 44px;
+  flex: 0 0 65px;
   border-radius: 50%;
   object-fit: cover;
-  mix-blend-mode: normal;
+  object-position: center;
+  display: block;
+  overflow: hidden;
 }
 
 .logo-name {
