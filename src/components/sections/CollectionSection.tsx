@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 import type { Product } from "../../types";
 import { STATE_PROFILES } from "../../data/stateProfiles";
 import IndiaMap from "../map/IndiaMap";
