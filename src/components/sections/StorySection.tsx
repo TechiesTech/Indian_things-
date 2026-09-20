@@ -42,26 +42,25 @@ export default function StorySection({ scrollToSection }: StorySectionProps) {
       ↗
     </a>
   </div>
+<div
+  className="relative w-[min(30vw,380px)] aspect-square grid place-items-center"
+  aria-hidden="true"
+>
+  <div className="absolute inset-[5%] rounded-full border border-[rgba(91,33,25,.25)] animate-[rotateOrbit_18s_linear_infinite]" />
 
-  <div className="relative w-[min(30vw,380px)] aspect-square grid place-items-center" aria-hidden="true">
-    <div className="absolute inset-[5%] rounded-full border border-[rgba(91,33,25,.25)] animate-[rotateOrbit_18s_linear_infinite]" />
-    <div className="absolute inset-[20%] rounded-full border border-[rgba(201,164,91,.7)] animate-[rotateOrbit_12s_reverse_linear_infinite]" />
+  <div className="absolute inset-[20%] rounded-full border border-[rgba(201,164,91,.7)] animate-[rotateOrbit_12s_reverse_linear_infinite]" />
 
-    <div className="relative w-[60%] aspect-square rounded-full grid place-items-center shadow-[0_30px_80px_rgba(53,18,14,.25)] select-none">
-        
-
-      <div className="symbol-center">
-        <video
-          className="story-logo"
-          src="/images/IndianThingsLogo.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-      </div>
-    </div>
+  <div className="relative w-[60%] aspect-square rounded-full overflow-hidden shadow-[0_30px_80px_rgba(53,18,14,.25)] select-none">
+    <video
+      className="absolute inset-0 w-full h-full object-cover"
+      src="/images/IndianThingsLogo.mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+    />
   </div>
+</div>
 </section>
   );
 }
