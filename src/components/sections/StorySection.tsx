@@ -12,29 +12,29 @@ export default function StorySection({
   scrollToSection,
 }: StorySectionProps) {
   return (
-    <section
-      id="story"
-      className="
-        relative
-        min-h-[70svh]
-        grid
-        grid-cols-1
-        lg:grid-cols-[80px_1.2fr_.8fr]
-        items-center
-        gap-10
-        lg:gap-[5vw]
-        px-6
-        py-16
-        sm:px-10
-        sm:py-20
-        md:px-12
-        lg:px-[8vw]
-        lg:py-[5vw]
-        bg-[#f7f4ed]
-        text-[#35120e]
-        overflow-hidden
-      "
-    >
+<section
+  id="story"
+  className="
+    relative
+    min-h-[70svh]
+    grid
+    grid-cols-1
+    lg:grid-cols-[50px_1fr_1fr]
+    items-center
+    gap-10
+    lg:gap-[3vw]
+    px-6
+    py-16
+    sm:px-10
+    sm:py-20
+    md:px-12
+    lg:px-[6vw]
+    lg:py-[5vw]
+    bg-[#f7f4ed]
+    text-[#35120e]
+    overflow-hidden
+  "
+>
       {/* Section Number */}
       <div
         className="
@@ -49,17 +49,19 @@ export default function StorySection({
       </div>
 
       {/* Content */}
-      <div
-        className="
-          story-content
-          w-full
-          max-w-[700px]
-          mx-auto
-          lg:mx-0
-          text-center
-          lg:text-left
-        "
-      >
+<div
+  className="
+    story-content
+    w-full
+    max-w-[700px]
+    lg:max-w-[600px]
+    mx-auto
+    lg:mx-0
+    text-center
+    lg:text-left
+    lg:-translate-x-[5vw]
+  "
+>
         {/* Small Heading */}
         <p
           className="
