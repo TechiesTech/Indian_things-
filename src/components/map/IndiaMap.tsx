@@ -91,12 +91,13 @@ export default function IndiaMap({
   const [zoom, setZoom] = useState(1.12);
 
   useEffect(() => {
-    fetch("/india.geojson")
+    fetch("/india_states.geojson")
       .then((response) => response.json())
       .then((value: GeoData) => setData(value))
       .catch(() => setData({ features: [] }));
   }, []);
 
+  // One path per state — no district borders
   const states = useMemo(
     () =>
       data?.features
@@ -149,7 +150,7 @@ export default function IndiaMap({
   };
 
   return (
-    <div className="relative z-10 flex h-full w-full items-center justify-center overflow-visible bg-transparent">
+    <div className="relative z-10 flex h-full w-full items-center justify-center overflow-visible">
       <svg
         viewBox="20 20 660 700"
         className="h-full w-full max-h-[96vh] transition-transform duration-300"
@@ -175,9 +176,10 @@ export default function IndiaMap({
                 fill={
                   selected ? "url(#map-gold)" : isHover ? "#8d6a2d" : "#1b1917"
                 }
-                fillOpacity={selected ? 0.92 : isHover ? 0.7 : 0.42}
-                stroke={selected ? "#f6dc9e" : "#d4c19a"}
-                strokeWidth={selected ? 1.35 : 0.65}
+                fillOpacity={selected ? 0.95 : isHover ? 0.75 : 0.55}
+                stroke={selected ? "#f6dc9e" : isHover ? "#e6c46a" : "#c4a870"}
+                strokeWidth={selected ? 1.8 : isHover ? 1.5 : 1.0}
+                strokeLinejoin="round"
                 className="cursor-pointer transition-[fill,fill-opacity] duration-200"
                 onMouseEnter={() => setHovered(state)}
                 onMouseLeave={() => setHovered(null)}
