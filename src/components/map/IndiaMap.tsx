@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, ArrowRight } from "lucide-react";
 import type { Product } from "../../types";
 import { STATE_PROFILES } from "../../data/stateProfiles";
 
@@ -81,6 +81,33 @@ const craftsFor = (state: string) => {
   return tagline.replace(/^The |^A /i, "");
 };
 
+// Get states that have active products
+const getStatesWithProducts = (products: Product[]): string[] => {
+  const stateProductMap = new Map<string, number>();
+  
+  products.forEach((product) => {
+    const origin = product.origin?.toLowerCase() ?? "";
+    
+    // Map products to states
+    if (origin.includes("kashmir")) {
+      stateProductMap.set("Jammu & Kashmir", (stateProductMap.get("Jammu & Kashmir") || 0) + 1);
+    }
+    if (origin.includes("sundarbans") || origin.includes("bengal")) {
+      stateProductMap.set("West Bengal", (stateProductMap.get("West Bengal") || 0) + 1);
+    }
+    if (origin.includes("kerala")) {
+      stateProductMap.set("Kerala", (stateProductMap.get("Kerala") || 0) + 1);
+    }
+    if (origin.includes("goa")) {
+      stateProductMap.set("Goa", (stateProductMap.get("Goa") || 0) + 1);
+    }
+  });
+  
+  // Return states with products in a specific order
+  const orderedStates = ["Jammu & Kashmir", "West Bengal", "Kerala", "Goa"];
+  return orderedStates.filter(state => stateProductMap.has(state));
+};
+
 export default function IndiaMap({
   products: _products,
   activeState = "Jammu & Kashmir",
@@ -89,6 +116,11 @@ export default function IndiaMap({
   const [data, setData] = useState<GeoData | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1.12);
+  const [autoCycleState, setAutoCycleState] = useState<string | null>(null);
+  const [isAutoCycling, setIsAutoCycling] = useState(true);
+  const [showPopup, setShowPopup] = useState(true);
+
+  const statesWithProducts = useMemo(() => getStatesWithProducts(_products), [_products]);
 
   useEffect(() => {
     fetch("/india_states.geojson")
@@ -96,6 +128,55 @@ export default function IndiaMap({
       .then((value: GeoData) => setData(value))
       .catch(() => setData({ features: [] }));
   }, []);
+
+  // Auto-cycle through states with products without zoom effect
+  useEffect(() => {
+    if (!isAutoCycling || statesWithProducts.length === 0) return;
+
+    let currentIndex = 0;
+    setAutoCycleState(statesWithProducts[0]);
+    setShowPopup(true);
+
+    const interval = setInterval(() => {
+      // Fade out popup then move to next state
+      setShowPopup(false);
+      
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % statesWithProducts.length;
+        setAutoCycleState(statesWithProducts[currentIndex]);
+        setShowPopup(true); // Fade in popup
+      }, 500);
+    }, 4000); // Change state every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [isAutoCycling, statesWithProducts]);
+
+  // Stop auto-cycling when activeState changes from parent
+  useEffect(() => {
+    if (activeState && activeState !== "Jammu & Kashmir") {
+      setIsAutoCycling(false);
+    }
+  }, [activeState]);
+
+  // Stop auto-cycling when user interacts
+  const handleStateInteraction = (state: string) => {
+    setIsAutoCycling(false);
+    onStateSelect?.(state);
+    // Set a flag to know this was a click interaction
+    // Auto-cycling will resume when cursor leaves map
+  };
+
+  // Stop auto-cycling on hover
+  const handleHover = (state: string) => {
+    setIsAutoCycling(false);
+    setHovered(state);
+  };
+
+  // Resume auto-cycling when cursor leaves the map
+  const handleMapLeave = () => {
+    setIsAutoCycling(true);
+    setHovered(null);
+  };
 
   // One path per state — no district borders
   const states = useMemo(
@@ -134,7 +215,7 @@ export default function IndiaMap({
   }, [data]);
 
   // ✅ FIX: force focusState to always be a string
-  const focusState: string = hovered ?? activeState ?? "Jammu & Kashmir";
+  const focusState: string = hovered ?? (isAutoCycling ? autoCycleState : activeState) ?? "Jammu & Kashmir";
 
   const labelPositions = { ...LABELS, ...calculatedLabels };
   const focusLabel = labelPositions[focusState] ?? [330, 370];
@@ -150,7 +231,10 @@ export default function IndiaMap({
   };
 
   return (
-    <div className="relative z-10 flex h-full w-full items-center justify-center overflow-visible">
+    <div 
+      className="relative z-10 flex h-full w-full items-center justify-center overflow-visible"
+      onMouseLeave={handleMapLeave}
+    >
       <svg
         viewBox="20 20 660 700"
         className="h-full w-full max-h-[96vh] transition-transform duration-300"
@@ -181,9 +265,9 @@ export default function IndiaMap({
                 strokeWidth={selected ? 1.8 : isHover ? 1.5 : 1.0}
                 strokeLinejoin="round"
                 className="cursor-pointer transition-[fill,fill-opacity] duration-200"
-                onMouseEnter={() => setHovered(state)}
+                onMouseEnter={() => handleHover(state)}
                 onMouseLeave={() => setHovered(null)}
-                onClick={() => onStateSelect?.(state)}
+                onClick={() => handleStateInteraction(state)}
               />
             );
           })}
@@ -229,36 +313,51 @@ export default function IndiaMap({
       />
 
       <div
-        className="pointer-events-none absolute z-20 w-[min(250px,68%)] rounded-lg border border-[#d4af67]/40 bg-[#1c1710]/55 px-4 py-3 backdrop-blur-[2px]"
+        className={`pointer-events-none absolute z-20 w-[min(220px,60%)] rounded-lg border border-[#d4af67]/40 bg-[#1c1710]/55 px-3 py-2.5 backdrop-blur-[2px] transition-all duration-500 ease-out ${
+          showPopup ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-2'
+        }`}
         style={{ left: `${popup.x}%`, top: `${popup.y}%` }}
       >
-        <div className="flex items-center justify-between gap-3">
-          <strong className="font-['Cormorant_Garamond',serif] text-lg leading-tight text-[#fff7e9]">
+        <div className="flex items-center justify-between gap-2">
+          <strong className="font-['Cormorant_Garamond',serif] text-base leading-tight text-[#fff7e9]">
             {focusState}
           </strong>
           <button
-            onClick={() => onStateSelect?.(focusState)}
-            className="pointer-events-auto grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#d69c35] text-[#21170b] transition-colors hover:bg-[#e6b84a]"
+            onClick={() => handleStateInteraction(focusState)}
+            className="pointer-events-auto grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#d69c35] text-[#21170b] transition-all duration-300 hover:bg-[#e6b84a] hover:scale-110 active:scale-95"
             aria-label={`Explore ${focusState}`}
           >
             →
           </button>
         </div>
-        <p className="mt-1.5 text-[11px] leading-relaxed text-[#d8cbb0]">
+        <p className="mt-1 text-[10px] leading-relaxed text-[#d8cbb0]">
           {craftsFor(focusState)}
         </p>
+        <button
+          onClick={() => handleStateInteraction(focusState)}
+          className="pointer-events-auto mt-2.5 flex w-full items-center justify-center gap-1.5 rounded-full border border-[#d69c35]/50 bg-[#d69c35]/10 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-wider text-[#fff7e9] transition-all duration-300 hover:bg-[#d69c35]/25 hover:border-[#d69c35] hover:shadow-lg hover:shadow-[#d69c35]/20 active:scale-95"
+        >
+          Click to Check Products
+          <ArrowRight size={10} />
+        </button>
       </div>
 
       <div className="absolute bottom-4 right-8 z-20 flex flex-col overflow-hidden rounded border border-white/15 bg-black/20">
         <button
-          onClick={() => setZoom((value) => Math.min(1.28, value + 0.1))}
+          onClick={() => {
+            setIsAutoCycling(false);
+            setZoom((value) => Math.min(1.28, value + 0.1));
+          }}
           className="pointer-events-auto grid h-9 w-9 place-items-center border-b border-white/15 text-white transition-colors hover:bg-white/10"
           aria-label="Zoom in"
         >
           <Plus size={15} />
         </button>
         <button
-          onClick={() => setZoom((value) => Math.max(1.02, value - 0.1))}
+          onClick={() => {
+            setIsAutoCycling(false);
+            setZoom((value) => Math.max(1.02, value - 0.1));
+          }}
           className="pointer-events-auto grid h-9 w-9 place-items-center text-white transition-colors hover:bg-white/10"
           aria-label="Zoom out"
         >
