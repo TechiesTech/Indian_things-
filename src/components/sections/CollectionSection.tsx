@@ -65,6 +65,27 @@ export default function CollectionSection({
           min-height: 100svh;
           overflow: hidden;
           isolation: isolate;
+          background-color: #35120e;
+          background-image:
+            linear-gradient(rgba(53,18,14,.88),rgba(35,12,8,.96)),
+            url('/images/indian-pattern.png');
+          background-size: auto, 500px;
+        }
+        .bharat-explorer .explorer-hero::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          pointer-events: none;
+          background:
+            radial-gradient(ellipse 55% 25% at 50% 0%,   rgba(10,3,2,.92) 0%, transparent 100%),
+            radial-gradient(ellipse 55% 28% at 50% 100%, rgba(10,3,2,.95) 0%, transparent 100%),
+            radial-gradient(ellipse 22% 80% at 0%   50%, rgba(10,3,2,.88) 0%, transparent 100%),
+            radial-gradient(ellipse 22% 80% at 100% 50%, rgba(10,3,2,.88) 0%, transparent 100%),
+            radial-gradient(ellipse 28% 28% at 0%   0%,  rgba(10,3,2,.96) 0%, transparent 80%),
+            radial-gradient(ellipse 28% 28% at 100% 0%,  rgba(10,3,2,.96) 0%, transparent 80%),
+            radial-gradient(ellipse 28% 28% at 0%   100%,rgba(10,3,2,.96) 0%, transparent 80%),
+            radial-gradient(ellipse 28% 28% at 100% 100%,rgba(10,3,2,.96) 0%, transparent 80%);
         }
         .bharat-explorer .explorer-hero-bg {
           position: absolute;
@@ -124,16 +145,42 @@ export default function CollectionSection({
         .bharat-explorer .product-card__name { font-family:"Cormorant Garamond",serif; font-size:18px; font-weight:600; }
         .bharat-explorer .monument-frame {
           position:relative;
-          min-height:295px;
-          overflow:hidden;
-          border-radius:22px;
-          border:1.5px solid rgba(168,111,35,.55);
-          box-shadow:0 18px 45px -18px rgba(0,0,0,.55), inset 0 0 0 1px rgba(247,244,237,.25);
-          background:#e8dec9;
+          min-height:320px;
+          overflow:visible;
+          background:transparent;
+          border:none;
+          box-shadow:none;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          padding: 16px 8px;
         }
-        .bharat-explorer .monument-frame img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-        .bharat-explorer .monument-frame .tint { position:absolute; inset:0; background:linear-gradient(135deg, rgba(247,244,237,.28) 0%, rgba(247,244,237,0) 45%), linear-gradient(0deg, rgba(90,60,20,.18), rgba(90,60,20,0) 60%); }
-        .bharat-explorer .monument-frame .quote { position:absolute; right:26px; top:22px; max-width:13rem; text-align:right; font-family:"Great Vibes",cursive; font-size:34px; line-height:.9; color:#f0c66e; text-shadow:0 2px 10px rgba(0,0,0,.65), 0 0 2px rgba(0,0,0,.85); }
+        .bharat-explorer .monument-frame .wc-img-wrap {
+          position:relative;
+          width:100%;
+          min-height:300px;
+          filter: drop-shadow(0 22px 55px rgba(0,0,0,.72)) drop-shadow(0 4px 20px rgba(160,110,30,.22));
+        }
+        .bharat-explorer .monument-frame .wc-img-wrap svg {
+          width:100%;
+          height:auto;
+          display:block;
+        }
+        .bharat-explorer .monument-frame .tint { display:none; }
+        .bharat-explorer .monument-frame .quote {
+          position:absolute;
+          right:22px;
+          bottom:32px;
+          z-index:2;
+          max-width:12rem;
+          text-align:right;
+          font-family:"Great Vibes",cursive;
+          font-size:30px;
+          line-height:.95;
+          color:#f0c66e;
+          text-shadow:0 2px 14px rgba(0,0,0,.95), 0 0 3px rgba(0,0,0,1);
+          pointer-events:none;
+        }
         @media(max-width:900px) {
           .bharat-explorer .explorer-hero { min-height:auto; }
           .bharat-explorer .explorer-copy { width:100%; min-height:auto; padding:100px 8vw 12px; }
@@ -253,9 +300,68 @@ export default function CollectionSection({
               </button>
             </div>
             <div className="monument-frame">
-              <img src={detail.monumentImage} alt={`${activeState} landmark`} />
-              <div className="tint" />
-              <div className="quote">{detail.bannerQuote}</div>
+              <div className="wc-img-wrap">
+                {/* Watercolor edge effect:
+                    1. Erode the image boundary inward (creates margin)
+                    2. Blur the eroded alpha mask (soft feathering)
+                    3. Displace the soft edge with turbulence (organic irregular edges)
+                    → Result: clean sharp center + painted irregular edges only at borders */}
+                <svg
+                  viewBox="0 0 800 480"
+                  preserveAspectRatio="xMidYMid slice"
+                  aria-label={`${activeState} landmark`}
+                >
+                  <defs>
+                    <filter
+                      id="watercolor-edge"
+                      x="-14%" y="-14%" width="128%" height="128%"
+                      colorInterpolationFilters="sRGB"
+                    >
+                      {/* Turbulence noise used for displacement only — NOT as alpha mask */}
+                      <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency="0.012 0.016"
+                        numOctaves="4"
+                        seed="5"
+                        result="noise"
+                      />
+                      {/* Shrink the solid image rect inward to create an edge zone */}
+                      <feMorphology
+                        operator="erode"
+                        radius="12"
+                        in="SourceAlpha"
+                        result="eroded"
+                      />
+                      {/* Blur the eroded mask to create soft, wide feathering at edges */}
+                      <feGaussianBlur
+                        stdDeviation="28"
+                        in="eroded"
+                        result="softMask"
+                      />
+                      {/* Displace the soft edge mask with turbulence → irregular organic shape */}
+                      <feDisplacementMap
+                        in="softMask"
+                        in2="noise"
+                        scale="55"
+                        xChannelSelector="R"
+                        yChannelSelector="G"
+                        result="organicMask"
+                      />
+                      {/* Cut the source image through the organic mask */}
+                      <feComposite in="SourceGraphic" in2="organicMask" operator="in" />
+                    </filter>
+                  </defs>
+                  <image
+                    href={detail.monumentImage}
+                    x="0" y="0"
+                    width="800"
+                    height="480"
+                    preserveAspectRatio="xMidYMid slice"
+                    style={{ filter: "url(#watercolor-edge)" }}
+                  />
+                </svg>
+                <div className="quote">{detail.bannerQuote}</div>
+              </div>
             </div>
           </div>
 
