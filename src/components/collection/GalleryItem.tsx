@@ -106,18 +106,30 @@ export default function GalleryItem({ product, index, onSelect }: GalleryItemPro
 
       <div className="product-info">
         <span>{product.category}</span>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <h3>{product.name}</h3>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelect(product);
-            }}
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#d69c35]/50 bg-[#d69c35]/20 text-[#d69c35] transition-all hover:bg-[#d69c35] hover:text-[#21170b]"
-            aria-label="View product details"
-          >
-            <ArrowRight size={18} />
-          </button>
+          <div className="flex items-center gap-2">
+            <a
+              href="https://indian-things-ecom-git-main-techiestechs-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="px-2.5 py-1 rounded-full border border-[#d69c35]/50 bg-[#d69c35]/15 text-[#FFE600] text-[10px] uppercase tracking-wider font-semibold hover:bg-[#d69c35] hover:text-[#21170b] transition-all"
+              aria-label={`Enquire about ${product.name}`}
+            >
+              Enquire
+            </a>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onSelect(product);
+              }}
+              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#d69c35]/50 bg-[#d69c35]/20 text-[#d69c35] transition-all hover:bg-[#d69c35] hover:text-[#21170b]"
+              aria-label="View product details"
+            >
+              <ArrowRight size={18} />
+            </button>
+          </div>
         </div>
       </div>
     </motion.article>

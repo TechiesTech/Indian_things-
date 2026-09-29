@@ -380,9 +380,15 @@ export default function CollectionSection({
                     A glimpse of {activeState}'s finest creations
                   </p>
                 </div>
-                <button className="inline-flex items-center gap-2 text-xs text-[#FFE600]">
-                  View All <ArrowRight size={14} />
-                </button>
+                <a
+                  href="https://indian-things-ecom-git-main-techiestechs-projects.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#d69c35]/50 bg-[#d69c35]/15 px-3.5 py-1.5 text-xs text-[#FFE600] transition-all hover:bg-[#d69c35] hover:text-[#21170b] hover:border-[#d69c35]"
+                  aria-label={`Enquire about ${activeState} collection`}
+                >
+                  Enquire Collection <ArrowRight size={14} />
+                </a>
               </div>
               {stateProducts.length > 0 ? (
                 <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
@@ -395,8 +401,16 @@ export default function CollectionSection({
                   ))}
                 </div>
               ) : (
-                <div className="mt-5 border border-dashed border-[#d69c35]/30 bg-white/10 px-6 py-10 text-center text-sm text-[#f4efe9]/70">
-                  No products available for {activeState} yet.
+                <div className="mt-5 flex flex-col items-center justify-center gap-3 border border-dashed border-[#d69c35]/30 bg-white/10 px-6 py-10 text-center text-sm text-[#f4efe9]/70">
+                  <p>No products available for {activeState} yet.</p>
+                  <a
+                    href="https://indian-things-ecom-git-main-techiestechs-projects.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#d69c35]/60 bg-[#d69c35]/10 px-4 py-2 text-xs text-[#FFE600] hover:bg-[#d69c35] hover:text-[#21170b] transition-all"
+                  >
+                    Enquire for {activeState} Harvests ↗
+                  </a>
                 </div>
               )}
             </>

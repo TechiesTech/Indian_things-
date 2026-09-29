@@ -150,14 +150,21 @@ export default function ProductDetailModal({
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex gap-4 mt-6">
-                  <button className="flex-1 flex items-center justify-center gap-2 bg-[#d69c35] text-[#21170b] px-6 py-3 rounded-lg font-medium text-sm tracking-wide hover:bg-[#e6cb8c] transition-colors">
+                <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                  <a
+                    id={`enquire-button-${selectedProduct.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+                    href="https://indian-things-ecom-git-main-techiestechs-projects.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-[#d69c35] text-[#21170b] px-6 py-3 rounded-lg font-medium text-sm tracking-wide hover:bg-[#e6cb8c] transition-all duration-200 shadow-lg shadow-[#d69c35]/20 hover:shadow-[#d69c35]/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                    aria-label={`Enquire about ${selectedProduct.name}`}
+                  >
                     Enquire Now
                     <ArrowRight size={16} />
-                  </button>
+                  </a>
                   <button
                     onClick={onClose}
-                    className="flex-1 flex items-center justify-center gap-2 bg-white/10 text-white px-6 py-3 rounded-lg font-medium text-sm tracking-wide hover:bg-white/20 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 bg-white/10 text-white px-6 py-3 rounded-lg font-medium text-sm tracking-wide hover:bg-white/20 transition-colors cursor-pointer"
                   >
                     Close Details
                     <ChevronRight size={16} />
